@@ -1,5 +1,5 @@
 {
-  "name": "bot-server",
+  "name": "wrike-bot",
   "version": "1.0.0",
   "description": "server architecture for building bots",
   "main": "server.js",
@@ -27,6 +27,8 @@
     "isomorphic-fetch": "^2.2.1",
     "lodash-node": "^3.10.2",
     "node-telegram-bot-api": "^0.21.1",
+    "request": "^2.74.0",
+    "request-promise-native": "^1.0.3",
     "spotify-web-api-node": "^2.3.0",
     "winston": "^2.2.0"
   }
