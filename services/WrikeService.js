@@ -4,13 +4,13 @@
     const Promise = require('bluebird')
     const config = require('../config')
     const request = require('request-promise-native')
-    module.getTasks = getTasks
+    module.getAllTasks = getAllTasks
 
     /**
      * Retrieve all tasks from wrike api
      * @return {array} Array of all tasks
      */
-    function getTasks() {
+    function getAllTasks() {
         const options = {
 
             uri: 'https://www.wrike.com/api/v3/tasks',
