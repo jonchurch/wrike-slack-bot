@@ -6,10 +6,10 @@
     const request = require('request-promise-native')
     module.getTasks = getTasks
 
-/**
- * Retrieve all tasks from wrike api
- * @return {array} Array of all tasks
- */
+    /**
+     * Retrieve all tasks from wrike api
+     * @return {array} Array of all tasks
+     */
     function getTasks() {
         const options = {
 
@@ -22,16 +22,21 @@
             },
             json: true // Automatically parses the JSON string in the response 
         }
+
         let tasks
-   return request(options)
-            /*.then(function(result) {
-            	tasks = result
-                return tasks
-            })
-            .catch(function(err) {
-                // API call failed... 
-                console.log(err)
-            })*/
+        return request(options)
+    }
+    function refreshCredentials(){}
+
+    function getUsersTasks(uid) {
+
+    }
+
+    function toggleStatus(taskId) {
+
+    }
+
+    function updateTask(taskObject) {
 
     }
 })(exports);
