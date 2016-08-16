@@ -3,7 +3,6 @@ const WrikeService = require('../services/WrikeService')
 class TaskHandler {
 
     getAll(bot, msg) {
-    	console.log('I CAN TOTALLY HANDLE THIS!')
         WrikeService.getAllTasks().then(function(result) {
         	console.log('PROMISES COME TRUE')
             let arr = []
