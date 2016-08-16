@@ -24,9 +24,11 @@
         }
 
         let tasks
-        return request(options)
+        return request(options).catch(function(err){
+            console.log('REQUEST ERROR=',err)
+        })
     }
-    function refreshCredentials(){}
+    function refreshCredentials(refresh_token){}
 
     function getUsersTasks(uid) {
 
