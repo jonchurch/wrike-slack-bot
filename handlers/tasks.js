@@ -4,8 +4,8 @@ class TaskHandler {
 
     getAll(bot, msg) {
         WrikeService.getAllTasks().then(function(result) {
-        	console.log('PROMISES COME TRUE')
             let arr = []
+            console.log('ATTN', result)
             for (let i = 0; i < result.data.length; i += 1) {
                 arr.push('Title: ' + result.data[i].title)
                 arr.push('Status: ' + result.data[i].status)
@@ -15,10 +15,16 @@ class TaskHandler {
             }
             const tasks = arr.join('\n\n')
             console.log('TASKS=',tasks)
-            
+            console.log(tasks)
             bot.reply(msg, tasks)    
         })
 
+    }
+    getActiveByUser(bot, msg, id){
+    	console.log('HANDLER HEARD GET ACTIVE')
+    	WrikeService.getActiveByUser(id).then(function(tasks){
+    		console.log('ACTIVE TASKS=',tasks)
+    	})
     }
 
 }

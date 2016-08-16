@@ -4,10 +4,14 @@
     const Promise = require('bluebird')
     const config = require('../config')
     const request = require('request-promise-native')
-    module.getAllTasks = getAllTasks
-    const AccessToken = {}
+    let AccessToken = null
 
     refreshCredentials()
+    
+    module.getAllTasks = getAllTasks
+    module.getAllContacts = getAllContacts
+    module.getActiveByUser = getActiveByUser
+    module.getAllByUser = getAllByUser
 
     /**
      * Retrieve all tasks from wrike api
@@ -17,22 +21,67 @@
         const options = {
 
             uri: 'https://www.wrike.com/api/v3/tasks',
-            // qs: {
-            //     access_token: 'xxxxx xxxxx' // -> uri + '?access_token=xxxxx%20xxxxx' 
-            // },
             headers: {
-                'Authorization': 'bearer ' + config.WRIKE_ACCESS_TOKEN
+                'Authorization': 'bearer ' + AccessToken
             },
-            json: true // Automatically parses the JSON string in the response 
+            json: true
         }
 
-        return request(options).then(function(result){
-            console.log('ALL TASKS',result)
-        }).catch(function(err){
-            console.log('REQUEST ERROR=',err)
-        })
+       return request(options)
     }
-    function refreshCredentials(refresh_token){
+
+    function getActiveByUser(id){
+        console.log(id)
+       const options = {
+
+            uri: 'https://www.wrike.com/api/v3/accounts/' + id + '/tasks',
+            headers: {
+                'Authorization': 'bearer ' + AccessToken
+            },
+            qs: {
+                status: 'Active'
+            },
+            json: true
+        }
+
+       return request(options)
+    }
+
+    function getAllByUser(id) {
+        const options = {
+
+            uri: 'https://www.wrike.com/api/v3/accounts/' + id + '/tasks',
+            headers: {
+                'Authorization': 'bearer ' + AccessToken
+            },
+            json: true
+        }
+
+       return request(options)
+
+
+    }
+    function getAllContacts(){
+        const options = {
+            uri: 'https://www.wrike.com/api/v3/contacts',
+            headers: {
+                'Authorization': 'bearer ' + AccessToken
+            },
+            json: true
+        }
+
+        return request(options)
+
+    }
+
+    function toggleTaskStatus(taskId) {
+
+    }
+
+    function updateTask(taskObject) {
+    }
+
+    function refreshCredentials() {
         const options = {
             uri: 'https://www.wrike.com/oauth2/token',
             qs: {
@@ -43,26 +92,9 @@
             },
             json: true
         }
-        return request.post(options).then(function(result){
-            console.log(result)
-        })
-        /*.then(function(result){
-            console.log('RESULT',result).catch(function(err){
-                console.log(err)
+        request.post(options).then(function(result) {
+                console.log('Token Refreshed')
+                AccessToken = result.access_token
             })
-        })*/
-
-    }
-
-    function getUsersTasks(uid) {
-
-    }
-
-    function toggleStatus(taskId) {
-
-    }
-
-    function updateTask(taskObject) {
-
     }
 })(exports);
